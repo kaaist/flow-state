@@ -29,8 +29,8 @@ a{color:var(--blue)}
 /* hero */
 .hero{position:relative;overflow:hidden;background:#07070f;color:#f5f5f7}
 .hero svg.art{position:absolute;inset:0;width:100%;height:100%}
-.hero .in{position:relative;max-width:1120px;margin:0 auto;padding:88px 28px 72px;display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
-.hero .trio{margin-bottom:24px}
+.hero .in{position:relative;max-width:1120px;margin:0 auto;padding:88px 28px 72px;display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+
 .auth{max-width:580px}
 .auth .fields{display:flex;flex-wrap:wrap;gap:0 12px}
 .auth .fields > div{flex:1 1 220px}
@@ -174,33 +174,30 @@ ul.ck li:before{content:"✓";position:absolute;left:0;top:7px;width:20px;height
       <h1>Get into flow, <span class="gt">every single day.</span></h1>
       <p class="lead">A simple weekly process to clarify your purpose, train your focus and productize your genius. Create a free account to unlock my ebooks, the Transformational Offer Builder and every new tool I add.</p>
       <div class="trio"><span>01 Clarify your purpose</span><span>02 Train your focus</span><span>03 Productize your genius</span></div>
-      <div class="auth" id="auth">
-        <div id="authForm">
-          <div class="tabs"><button class="on" data-mode="join">Join free</button><button data-mode="login">Log in</button></div>
-          <form id="f">
-            <div id="joinTxt"><h3>Create your free account</h3><p class="s">Get instant access to the ebooks and tools. No password to remember.</p></div>
-            <div id="loginTxt" class="hidden"><h3>Welcome back</h3><p class="s">Enter your email and we'll send you a sign-in link and code.</p></div>
-            <div class="fields"><div id="nameRow"><label for="nm">Full name</label><input id="nm" autocomplete="name" placeholder="Your full name"></div>
-            <div><label for="em">Email</label><input id="em" type="email" autocomplete="email" placeholder="you@example.com" required></div></div>
-            <button class="btn" id="go" type="submit">Create my free account →</button>
-            <div class="err" id="err"></div>
-            <p class="fine" id="fine">By joining you agree to get emails from Kyle Pearce at DIY Genius when new tools and ebooks come out. Unsubscribe anytime.</p>
-          </form>
-        </div>
-        <div id="authCode" class="hidden">
-          <div class="mail"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></div>
-          <h3>Check your email</h3>
-          <p class="s">We sent a sign-in link to <b id="sentTo" style="color:#fff"></b>. Click it, or type the code from the email here.</p>
-          <label for="cd">Code</label><input id="cd" class="code" inputmode="numeric" autocomplete="one-time-code" maxlength="8" placeholder="······">
-          <button class="btn" id="verify">Open my hub →</button>
-          <div class="err" id="err2"></div>
-          <button class="link" id="back">Use a different email</button>
-        </div>
+      </div>
+  <div class="auth" id="auth">
+      <div id="authForm">
+        <div class="tabs"><button class="on" data-mode="join">Join free</button><button data-mode="login">Log in</button></div>
+        <form id="f">
+          <div id="joinTxt"><h3>Create your free account</h3><p class="s">Get instant access to the ebooks and tools. No password to remember.</p></div>
+          <div id="loginTxt" class="hidden"><h3>Welcome back</h3><p class="s">Enter your email and we'll send you a sign-in link and code.</p></div>
+          <div class="fields"><div id="nameRow"><label for="nm">Full name</label><input id="nm" autocomplete="name" placeholder="Your full name"></div>
+          <div><label for="em">Email</label><input id="em" type="email" autocomplete="email" placeholder="you@example.com" required></div></div>
+          <button class="btn" id="go" type="submit">Create my free account →</button>
+          <div class="err" id="err"></div>
+          <p class="fine" id="fine">By joining you agree to get emails from Kyle Pearce at DIY Genius when new tools and ebooks come out. Unsubscribe anytime.</p>
+        </form>
+      </div>
+      <div id="authCode" class="hidden">
+        <div class="mail"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></div>
+        <h3>Check your email</h3>
+        <p class="s">We sent a sign-in link to <b id="sentTo" style="color:#fff"></b>. Click it, or type the code from the email here.</p>
+        <label for="cd">Code</label><input id="cd" class="code" inputmode="numeric" autocomplete="one-time-code" maxlength="8" placeholder="······">
+        <button class="btn" id="verify">Open my hub →</button>
+        <div class="err" id="err2"></div>
+        <button class="link" id="back">Use a different email</button>
       </div>
     </div>
-    <figure class="cycle" aria-label="The flow cycle: struggle in beta waves, release in alpha waves, flow in theta waves and recovery in delta waves">
-      <svg id="cycle" viewBox="-10 -10 660 660"></svg>
-    </figure>
   </div>
 </header>
 
@@ -521,7 +518,7 @@ async function fromLink(){
 
 /* ===== Start ===== */
 (async function(){
-  paintArt(); drawCycle(); renderStages(); renderLib();
+  paintArt(); renderStages(); renderLib();
   if(demo){$("demo").classList.remove("hidden");try{user=JSON.parse((store()&&store().getItem("fsos-demo-user"))||"null")}catch(e){}}
   else{
     user=await fromLink();
