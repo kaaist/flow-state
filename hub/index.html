@@ -301,7 +301,7 @@ function esc(s){return String(s||"").replace(/[&<>"]/g,function(c){return {"&":"
 function toast(m){var t=$("toast");t.textContent=m;t.classList.add("on");clearTimeout(t._h);t._h=setTimeout(function(){t.classList.remove("on")},2600)}
 function post(m){if(inFrame)try{window.parent.postMessage(m,"*")}catch(e){}}
 function store(){try{return window.localStorage}catch(e){return null}}
-function sendHeight(){post({type:"fs-height",h:document.documentElement.scrollHeight})}
+function sendHeight(){post({type:"fs-height",h:Math.ceil(document.body.getBoundingClientRect().height)})}
 function toTop(){if(inFrame)post({type:"fs-scroll",y:0});else window.scrollTo({top:0,behavior:"smooth"})}
 
 /* ===== Flowing ribbon art ===== */
