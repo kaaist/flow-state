@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flow State OS · Find your focus, live your purpose, productize your genius</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--blue:#0071e3;--purple:#7b4dff;--pink:#e0479e;--ink:#1d1d1f;--sub:#3a3a3c;--mute:#86868b;--line:#e5e5ea;--soft:#f5f5f7;--grad:linear-gradient(100deg,#0071e3,#7b4dff 55%,#e0479e)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{font-family:Inter,-apple-system,"Helvetica Neue",sans-serif;color:var(--ink);background:#fff;-webkit-font-smoothing:antialiased}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+input{font:inherit;color:inherit}
+a{color:var(--blue)}
+.hidden{display:none!important}
+.gt{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--purple);margin-bottom:10px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 28px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:600;font-size:16px;padding:14px 24px;border-radius:999px;background:var(--grad);color:#fff;box-shadow:0 8px 30px rgba(123,77,255,.35);transition:transform .15s,opacity .15s;text-decoration:none}
+.btn:hover{transform:translateY(-1px)}
+.btn:disabled{opacity:.5;cursor:default;transform:none}
+.btn.ghost{background:var(--soft);color:var(--ink);box-shadow:none}
+.btn.dark{background:#1d1d1f;box-shadow:none}
+.btn.sm{font-size:14px;padding:10px 18px}
+.demo{background:#fff6d6;color:#6b5200;font-size:13px;text-align:center;padding:8px 16px}
+
+/* hero */
+.hero{position:relative;overflow:hidden;background:#07070f;color:#f5f5f7}
+.hero svg.art{position:absolute;inset:0;width:100%;height:100%}
+.hero .in{position:relative;max-width:1120px;margin:0 auto;padding:96px 28px 72px;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+.hero .eyebrow{color:#9fb8ff}
+.hero h1{font-size:clamp(40px,5.6vw,68px);line-height:1.02;letter-spacing:-.035em;font-weight:800}
+.hero h1 .gt{background:linear-gradient(100deg,#5aa8ff,#a98bff 55%,#ff7ab8);-webkit-background-clip:text;background-clip:text}
+.hero p.lead{font-size:19px;line-height:1.5;color:#d6d6e0;max-width:580px;margin:18px 0 22px}
+.trio{display:flex;flex-wrap:wrap;gap:8px}
+.trio span{font-size:14px;font-weight:600;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#e9e9f2}
+
+/* auth card */
+.auth{background:rgba(18,17,32,.78);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.12);border-radius:26px;padding:26px;box-shadow:0 30px 80px rgba(0,0,0,.45)}
+.auth .tabs{display:flex;background:rgba(255,255,255,.07);border-radius:999px;padding:4px;margin-bottom:18px}
+.auth .tabs button{flex:1;padding:10px;border-radius:999px;font-weight:600;font-size:14.5px;color:#b9b9c8}
+.auth .tabs button.on{background:#fff;color:var(--ink)}
+.auth h3{font-size:22px;letter-spacing:-.02em;margin-bottom:4px}
+.auth p.s{font-size:14.5px;line-height:1.5;color:#b9b9c8;margin-bottom:16px}
+.auth label{display:block;font-size:13px;font-weight:600;color:#d6d6e0;margin:12px 0 6px}
+.auth input{width:100%;padding:13px 15px;border-radius:12px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.06);color:#fff;font-size:16px;outline:0}
+.auth input:focus{border-color:#a98bff;background:rgba(255,255,255,.1)}
+.auth input::placeholder{color:#7d7d90}
+.auth .btn{width:100%;margin-top:18px}
+.auth .fine{font-size:12.5px;line-height:1.5;color:#8d8da0;margin-top:12px;text-align:center}
+.auth .err{font-size:14px;color:#ff9db8;margin-top:10px;min-height:0}
+.auth .code{letter-spacing:.4em;text-align:center;font-size:24px;font-weight:700}
+.auth .link{color:#a98bff;font-weight:600;font-size:14px;text-decoration:underline;margin-top:12px;display:inline-block}
+.mail{width:54px;height:54px;border-radius:50%;background:var(--grad);display:grid;place-items:center;margin-bottom:14px}
+
+/* sections */
+.lp{padding:80px 0;border-top:1px solid var(--line)}
+.lp:first-child{border-top:0}
+.lp h2{font-size:clamp(34px,4.6vw,52px);letter-spacing:-.035em;line-height:1.04;margin-bottom:16px;max-width:840px}
+.lp p.big{font-size:20px;line-height:1.55;color:var(--sub);max-width:760px;margin-bottom:34px}
+
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-bottom:34px}
+.week div{border-radius:16px;padding:14px 10px;text-align:center;background:var(--soft)}
+.week b{display:block;font-size:13px;color:var(--mute);font-weight:600;margin-bottom:4px}
+.week span{font-size:15px;font-weight:700;letter-spacing:-.01em}
+.week .f{background:linear-gradient(160deg,rgba(0,113,227,.12),rgba(0,113,227,.04))}
+.week .p{background:linear-gradient(160deg,rgba(123,77,255,.14),rgba(123,77,255,.04))}
+.week .g{background:linear-gradient(160deg,rgba(224,71,158,.14),rgba(224,71,158,.04))}
+.week .r{background:#1d1d1f;color:#fff}.week .r b{color:#a9a9b8}
+
+.stages{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.stage{border-radius:24px;overflow:hidden;background:var(--soft);display:flex;flex-direction:column}
+.stage .ban{position:relative;height:130px;background:#07070f}
+.stage .ban svg{position:absolute;inset:0;width:100%;height:100%}
+.stage .ban .n{position:absolute;left:22px;bottom:12px;font-size:56px;font-weight:800;letter-spacing:-.05em;color:#fff;line-height:1}
+.stage .ban .d{position:absolute;right:16px;top:14px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:rgba(255,255,255,.14);padding:5px 10px;border-radius:999px}
+.stage .bd{padding:22px 24px 26px}
+.stage h3{font-size:24px;letter-spacing:-.02em;margin-bottom:8px}
+.stage p{font-size:15.5px;line-height:1.55;color:var(--sub);margin-bottom:12px}
+ul.ck{list-style:none}
+ul.ck li{position:relative;padding:6px 0 6px 30px;font-size:15px;line-height:1.45;color:var(--sub)}
+ul.ck li:before{content:"✓";position:absolute;left:0;top:7px;width:20px;height:20px;border-radius:50%;background:var(--grad);color:#fff;font-size:11px;font-weight:800;display:grid;place-items:center}
+.reset{display:flex;gap:20px;align-items:center;background:#0b0b14;color:#f5f5f7;border-radius:24px;padding:26px 30px;margin-top:16px}
+.reset .n{font-size:40px;font-weight:800;letter-spacing:-.04em}
+.reset h3{font-size:20px;margin-bottom:4px}
+.reset p{font-size:15.5px;line-height:1.55;color:#c9c9d6}
+
+/* library */
+.lib-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:34px 0 14px}
+.lib-h h3{font-size:22px;letter-spacing:-.02em}
+.lib-h span{font-size:14px;color:var(--mute)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.item{position:relative;border:1px solid var(--line);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:8px;background:#fff;transition:box-shadow .2s,transform .2s}
+.item:hover{box-shadow:0 16px 40px rgba(20,10,60,.08);transform:translateY(-2px)}
+.item .cov{height:120px;border-radius:12px;background:#07070f;position:relative;overflow:hidden;margin-bottom:6px}
+.item .cov svg{position:absolute;inset:0;width:100%;height:100%}
+.item .cov b{position:absolute;left:14px;bottom:12px;right:14px;color:#fff;font-size:15px;line-height:1.2;letter-spacing:-.01em}
+.item .tag{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--purple)}
+.item h4{font-size:17px;letter-spacing:-.01em;line-height:1.25}
+.item p{font-size:14.5px;line-height:1.5;color:var(--sub);flex:1}
+.item .act{margin-top:6px}
+.item .act button,.item .act a{font-size:14px;font-weight:600;padding:9px 16px;border-radius:999px;background:#1d1d1f;color:#fff;text-decoration:none;display:inline-flex;gap:6px;align-items:center}
+.item.soon{background:var(--soft);border-style:dashed}
+.item.soon .act span{font-size:13px;font-weight:600;color:var(--mute)}
+.lock{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--mute)}
+
+.fq{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fq div{border:1px solid var(--line);border-radius:18px;padding:20px 22px}
+.fq b{display:block;font-size:17px;margin-bottom:6px}
+.fq p{font-size:15.5px;line-height:1.55;color:var(--sub)}
+.cta{position:relative;overflow:hidden;border-radius:28px;background:#07070f;color:#fff;margin:10px 0 70px}
+.cta svg{position:absolute;inset:0;width:100%;height:100%}
+.cta .in2{position:relative;padding:76px 40px;text-align:center}
+.cta h2{font-size:clamp(32px,4.4vw,48px);letter-spacing:-.035em;line-height:1.05;margin-bottom:12px}
+.cta p{font-size:19px;color:#d6d6e0;margin-bottom:26px}
+
+/* member */
+.mhead{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.mhead .who{font-size:14px;color:#a9a9b8}
+.mhead .who b{color:#fff}
+.signout{font-size:14px;font-weight:600;color:#d6d6e0;padding:9px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.2)}
+.hero.member .in{grid-template-columns:1fr;padding:64px 28px 56px}
+.thisweek{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:28px}
+.tw{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:18px}
+.tw .k{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#9fb8ff;margin-bottom:10px}
+.tw label{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;line-height:1.4;color:#e9e9f2;padding:6px 0;cursor:pointer}
+.tw input{appearance:none;-webkit-appearance:none;flex:none;width:20px;height:20px;border-radius:6px;border:2px solid rgba(255,255,255,.35);margin-top:1px;display:grid;place-items:center;cursor:pointer}
+.tw input:checked{background:linear-gradient(135deg,#5aa8ff,#a98bff,#ff7ab8);border-color:transparent}
+.tw input:checked:after{content:"✓";color:#fff;font-size:12px;font-weight:800}
+.tw label.done span{color:#8d8da0;text-decoration:line-through}
+.prog{display:flex;align-items:center;gap:14px;margin-top:18px;font-size:14px;color:#c9c9d6}
+.prog .bar{flex:1;max-width:340px;height:6px;border-radius:6px;background:rgba(255,255,255,.12);overflow:hidden}
+.prog .bar i{display:block;height:100%;width:0;background:linear-gradient(100deg,#5aa8ff,#a98bff,#ff7ab8);transition:width .4s}
+
+.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);background:#1d1d1f;color:#fff;padding:12px 20px;border-radius:999px;font-size:14px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:50}
+.toast.on{opacity:1}
+
+@media (max-width:900px){
+ .hero .in{grid-template-columns:1fr;padding:64px 22px 48px;gap:32px}
+ .stages,.fq{grid-template-columns:1fr}
+ .week{grid-template-columns:repeat(7,minmax(64px,1fr));overflow-x:auto}
+ .thisweek{grid-template-columns:1fr 1fr}
+ .wrap{padding:0 22px}
+ .lp{padding:56px 0}
+ .reset{flex-direction:column;align-items:flex-start}
+}
+@media (max-width:560px){.thisweek{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="demo hidden" id="demo">Preview mode: accounts aren't connected yet, so sign-up here only works in this browser.</div>
+
+<!-- PUBLIC VIEW -->
+<div id="pub">
+<header class="hero">
+  <svg class="art" data-art="hero" preserveAspectRatio="xMidYMid slice"></svg>
+  <div class="in">
+    <div>
+      <div class="eyebrow">Flow State OS · Free member hub</div>
+      <h1>Get into flow, <span class="gt">every single week.</span></h1>
+      <p class="lead">A simple weekly process to find your focus, live your purpose and productize your genius. Create a free account to unlock my ebooks, the Transformational Offer Builder and every new tool I add.</p>
+      <div class="trio"><span>01 Find your focus</span><span>02 Live your purpose</span><span>03 Productize your genius</span></div>
+    </div>
+
+    <div class="auth" id="auth">
+      <div id="authForm">
+        <div class="tabs"><button class="on" data-mode="join">Join free</button><button data-mode="login">Log in</button></div>
+        <form id="f">
+          <div id="joinTxt"><h3>Create your free account</h3><p class="s">Get instant access to the ebooks and tools. No password to remember.</p></div>
+          <div id="loginTxt" class="hidden"><h3>Welcome back</h3><p class="s">Enter your email and we'll send you a sign-in link and code.</p></div>
+          <div id="nameRow"><label for="nm">Full name</label><input id="nm" autocomplete="name" placeholder="Your full name"></div>
+          <label for="em">Email</label><input id="em" type="email" autocomplete="email" placeholder="you@example.com" required>
+          <button class="btn" id="go" type="submit">Create my free account →</button>
+          <div class="err" id="err"></div>
+          <p class="fine" id="fine">By joining you agree to get emails from Kyle Pearce at DIY Genius when new tools and ebooks come out. Unsubscribe anytime.</p>
+        </form>
+      </div>
+      <div id="authCode" class="hidden">
+        <div class="mail"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></div>
+        <h3>Check your email</h3>
+        <p class="s">We sent a sign-in link to <b id="sentTo" style="color:#fff"></b>. Click it, or type the code from the email here.</p>
+        <label for="cd">Code</label><input id="cd" class="code" inputmode="numeric" autocomplete="one-time-code" maxlength="8" placeholder="······">
+        <button class="btn" id="verify">Open my hub →</button>
+        <div class="err" id="err2"></div>
+        <button class="link" id="back">Use a different email</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="lp" id="process">
+    <div class="eyebrow">The process</div>
+    <h2>Three moves. One week. <span class="gt">Repeat.</span></h2>
+    <p class="big">Flow isn't luck. It shows up when you have a clear goal, a task that stretches you and time to go deep without interruptions. This loop builds all three into your week, so getting into flow becomes a habit instead of a happy accident.</p>
+    <div class="week">
+      <div class="f"><b>Mon</b><span>Focus</span></div>
+      <div class="f"><b>Tue</b><span>Flow</span></div>
+      <div class="p"><b>Wed</b><span>Purpose</span></div>
+      <div class="f"><b>Thu</b><span>Flow</span></div>
+      <div class="g"><b>Fri</b><span>Ship</span></div>
+      <div><b>Sat</b><span>Rest</span></div>
+      <div class="r"><b>Sun</b><span>Reset</span></div>
+    </div>
+    <div class="stages" id="stages"></div>
+    <div class="reset"><div class="n gt">↻</div><div><h3>Sunday: review and reset</h3><p>Look back at your flow hours, your wins and what got in the way. Then pick next week's goal and the loop starts again. Twenty minutes is enough.</p></div></div>
+  </section>
+
+  <section class="lp">
+    <div class="eyebrow">What's inside</div>
+    <h2>Your free flow toolkit.</h2>
+    <p class="big">Every ebook and tool lines up with a step in the weekly loop. Create an account to open them. New tools land here first.</p>
+    <div id="pubLib"></div>
+    <div style="margin-top:30px"><button class="btn" data-join>Unlock everything free →</button></div>
+  </section>
+
+  <section class="lp">
+    <div class="eyebrow">Questions</div>
+    <h2>Good to know.</h2>
+    <div class="fq">
+      <div><b>Is it really free?</b><p>Yes. The hub, the ebooks and the tools in it are free. You only need your name and email.</p></div>
+      <div><b>Do I need a password?</b><p>No. Each time you log in we email you a link and a code. Click the link or type the code and you're in.</p></div>
+      <div><b>How does this connect to the Chrome extension?</b><p>Flow State OS is also a Chrome new-tab extension with a focus timer, website blocker, focus music, goals and an AI coach. It runs the Monday to Friday part of the loop for you.</p></div>
+      <div><b>Will more tools be added?</b><p>Yes. The Transformational Offer Builder is the first. More tools for each step of the loop are on the way, and members get them first.</p></div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <svg data-art="cta" preserveAspectRatio="xMidYMid slice"></svg>
+    <div class="in2"><h2>Start this week's loop.</h2><p>Free account. Every ebook and tool in one place.</p><button class="btn" data-join>Create my free account →</button></div>
+  </section>
+</main>
+</div>
+
+<!-- MEMBER VIEW -->
+<div id="mem" class="hidden">
+<header class="hero member">
+  <svg class="art" data-art="mem" preserveAspectRatio="xMidYMid slice"></svg>
+  <div class="in">
+    <div>
+      <div class="mhead"><div class="eyebrow" style="margin:0">Flow State OS · Member hub</div><div><span class="who">Signed in as <b id="whoEm"></b></span> <button class="signout" id="out">Sign out</button></div></div>
+      <h1 style="margin-top:18px">Welcome back, <span class="gt" id="first">friend</span>.</h1>
+      <p class="lead" style="margin-bottom:0">Here's your loop for the week of <b id="wk" style="color:#fff"></b>. Tick things off as you go. The list resets every Monday.</p>
+      <div class="thisweek" id="tw"></div>
+      <div class="prog"><div class="bar"><i id="pbar"></i></div><span id="ptxt"></span></div>
+    </div>
+  </div>
+</header>
+<main class="wrap">
+  <section class="lp">
+    <div class="eyebrow">Your library</div>
+    <h2>Ebooks and tools.</h2>
+    <p class="big">Grouped by the step of the loop they help with. Open anything, anytime.</p>
+    <div id="memLib"></div>
+  </section>
+  <section class="cta">
+    <svg data-art="cta2" preserveAspectRatio="xMidYMid slice"></svg>
+    <div class="in2"><h2>Want people to do the loop with?</h2><p>The Founders Mastermind meets weekly for accountability, with quarterly retreats.</p><a class="btn" href="https://socialcreators.com/mastermind" target="_top">See the Founders Mastermind →</a></div>
+  </section>
+</main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ===== Settings ===== */
+var SUPABASE_URL = "https://axzrkvkdamzcryuwkdow.supabase.co";
+var SUPABASE_KEY = "PASTE_PUBLISHABLE_KEY";       // Flow State OS project, publishable (anon) key
+var PAGE_URL = "https://www.diygenius.com/flow-state/";
+var BUCKET = "library";                            // private storage bucket for ebook PDFs
+
+/* Used when the library table can't be read. The live list comes from public.library_items. */
+var LIBRARY = [
+  {kind:"tool", stage:"focus", title:"Flow State OS for Chrome", description:"Your new tab becomes a focus dashboard: flow timer, website blocker, focus music, weekly goals and an AI coach.", url:"https://www.diygenius.com/flow-state-os/", status:"live", sort:1},
+  {kind:"ebook", stage:"focus", title:"Flow Experience Design", description:"Break mindless habits, build mindful ones and design your days for more time in flow.", file_path:"flow-experience-design.pdf", status:"live", sort:2},
+  {kind:"tool", stage:"purpose", title:"Ikigai Mapper", description:"Map what you love, what you're good at, what helps people and what pays, then find the overlap.", status:"soon", sort:3},
+  {kind:"ebook", stage:"genius", title:"Productize Your Genius", description:"The 7 Ps framework for turning what you know into an offer people can buy.", file_path:"productize-your-genius.pdf", status:"live", sort:4},
+  {kind:"tool", stage:"genius", title:"Transformational Offer Builder", description:"Talk through the 7 Ps and get a one-page offer sheet, a full offer doc and an AI file in your voice.", url:"https://www.diygenius.com/offer-builder/", status:"live", sort:5},
+  {kind:"ebook", stage:"genius", title:"The 10 Mistakes Experts Make Selling Their Expertise Online", description:"What stops experts from getting consistent clients, and what to do instead.", file_path:"10-mistakes-experts-make.pdf", status:"live", sort:6},
+  {kind:"ebook", stage:"genius", title:"The AI Playbook for Sold Out Retreats", description:"How to fill retreats using AI search, content and ads.", url:"https://www.diygenius.com/the-ai-playbook-for-sold-out-retreats/", status:"live", sort:7}
+];
+
+var STAGES = {
+  focus:{n:"01", day:"Monday", title:"Find your focus", hue:0, text:"Pick one weekly goal that moves your biggest project forward. Break it into small daily tasks, then protect time to go deep with distractions switched off.",
+    rituals:["Set one clear goal for the week","Plan tomorrow's first task before you stop","Run 2 to 4 flow sessions a day with the blocker on"]},
+  purpose:{n:"02", day:"Midweek", title:"Live your purpose", hue:1, text:"Midweek, check your work against what matters to you. Is it work you love, that you're good at, that helps people and that pays? Adjust before the week runs away.",
+    rituals:["Spend 10 minutes on your why","Get out of your head: a walk, nature or music","Drop or hand off one task that drains you"]},
+  genius:{n:"03", day:"Friday", title:"Productize your genius", hue:2, text:"Turn what you know into something people can buy. Every Friday, ship one piece of your offer: your promise, a step of your method, a page or a workshop.",
+    rituals:["Ship one piece of your offer","Share one lesson from your week","Log your wins and revenue"]}
+};
+
+/* ===== Helpers ===== */
+var $ = function(id){return document.getElementById(id)};
+var inFrame = window.parent !== window;
+var demo = !window.supabase || SUPABASE_KEY.indexOf("PASTE") === 0;
+var sb = demo ? null : window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {auth:{persistSession:true, autoRefreshToken:true, detectSessionInUrl:false, storageKey:"fsos-hub-auth"}});
+var user = null, items = LIBRARY.slice();
+function esc(s){return String(s||"").replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function toast(m){var t=$("toast");t.textContent=m;t.classList.add("on");clearTimeout(t._h);t._h=setTimeout(function(){t.classList.remove("on")},2600)}
+function post(m){if(inFrame)try{window.parent.postMessage(m,"*")}catch(e){}}
+function store(){try{return window.localStorage}catch(e){return null}}
+function sendHeight(){post({type:"fs-height",h:document.documentElement.scrollHeight})}
+function toTop(){if(inFrame)post({type:"fs-scroll",y:0});else window.scrollTo({top:0,behavior:"smooth"})}
+
+/* ===== Flowing ribbon art ===== */
+var ART_N=0;
+var PAL=[["#0071e3","#5aa8ff","#7b4dff"],["#7b4dff","#a98bff","#e0479e"],["#e0479e","#ff7ab8","#7b4dff"]];
+function ribbons(svg, seed, pal){
+  var w=1200,h=600; svg.setAttribute("viewBox","0 0 "+w+" "+h);
+  var r=seed*9301+49297, rnd=function(){r=(r*9301+49297)%233280;return r/233280};
+  var id="g"+seed+"_"+(ART_N++), out='<defs>';
+  pal.forEach(function(c,i){out+='<linearGradient id="'+id+i+'" x1="0" x2="1"><stop offset="0" stop-color="'+c+'" stop-opacity="0"/><stop offset=".5" stop-color="'+c+'" stop-opacity=".9"/><stop offset="1" stop-color="'+pal[(i+1)%pal.length]+'" stop-opacity="0"/></linearGradient>'});
+  out+='<filter id="'+id+'b"><feGaussianBlur stdDeviation="1.2"/></filter></defs>';
+  for(var k=0;k<3;k++){
+    var base=h*(.35+.25*rnd()), amp=60+rnd()*90, ph=rnd()*6.28, fr=.004+rnd()*.004;
+    for(var j=0;j<26;j++){
+      var d="M -20 "+(base).toFixed(1), off=j*3.2;
+      for(var x=0;x<=w+40;x+=40){var y=base+off+Math.sin(x*fr+ph+j*.05)*amp+Math.sin(x*fr*2.3+ph*1.7)*amp*.3;d+=" L "+x+" "+y.toFixed(1)}
+      out+='<path d="'+d+'" fill="none" stroke="url(#'+id+k+')" stroke-width="1.1" opacity="'+(0.25+0.5*(j/26)).toFixed(2)+'"/>';
+    }
+  }
+  svg.innerHTML=out;
+}
+function paintArt(){
+  document.querySelectorAll("svg[data-art]").forEach(function(s,i){ribbons(s,i+3,[["#0071e3","#7b4dff","#e0479e"],["#5aa8ff","#a98bff","#ff7ab8"]][i%2])});
+}
+function cover(seed,stage){var s=document.createElementNS("http://www.w3.org/2000/svg","svg");s.setAttribute("preserveAspectRatio","xMidYMid slice");ribbons(s,seed,PAL[{focus:0,purpose:1,genius:2}[stage]||0]);return s.outerHTML}
+
+/* ===== Public content ===== */
+function renderStages(){
+  $("stages").innerHTML = Object.keys(STAGES).map(function(k,i){var s=STAGES[k];
+    return '<div class="stage"><div class="ban">'+cover(20+i,k)+'<div class="n">'+s.n+'</div><div class="d">'+s.day+'</div></div><div class="bd"><h3>'+s.title+'</h3><p>'+s.text+'</p><ul class="ck">'+s.rituals.map(function(r){return '<li>'+r+'</li>'}).join("")+'</ul></div></div>'}).join("");
+}
+function libHTML(locked){
+  var order=["focus","purpose","genius"];
+  return order.map(function(st){
+    var list=items.filter(function(x){return x.stage===st}).sort(function(a,b){return (a.sort||0)-(b.sort||0)});
+    if(!list.length) return "";
+    return '<div class="lib-h"><h3>'+STAGES[st].n+' · '+STAGES[st].title+'</h3><span>'+list.length+' item'+(list.length>1?"s":"")+'</span></div><div class="grid">'+list.map(function(it,i){
+      var soon=it.status==="soon", act;
+      if(soon) act='<span>Coming soon</span>';
+      else if(locked) act='<span class="lock"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Members only</span>';
+      else if(it.file_path) act='<button data-file="'+esc(it.file_path)+'">Read the ebook →</button>';
+      else act='<a href="'+esc(it.url)+'" target="_top">'+(it.kind==="tool"?"Open the tool →":"Read it →")+'</a>';
+      return '<div class="item'+(soon?" soon":"")+'"><div class="cov">'+cover(st.length*7+i+(it.sort||0),st)+'<b>'+esc(it.title)+'</b></div><div class="tag">'+(it.kind==="tool"?"Tool":"Ebook")+'</div><h4>'+esc(it.title)+'</h4><p>'+esc(it.description)+'</p><div class="act">'+act+'</div></div>'}).join("")+'</div>';
+  }).join("");
+}
+function renderLib(){$("pubLib").innerHTML=libHTML(true);$("memLib").innerHTML=libHTML(false);sendHeight()}
+async function loadLibrary(){
+  if(demo) return renderLib();
+  try{var r=await sb.from("library_items").select("kind,stage,title,description,url,file_path,status,sort").order("sort");
+    if(!r.error && r.data && r.data.length) items=r.data;}catch(e){}
+  renderLib();
+}
+document.addEventListener("click",async function(e){
+  var b=e.target.closest("[data-file]"); if(!b) return;
+  var path=b.getAttribute("data-file");
+  if(demo){toast("Ebooks open here once accounts are connected.");return}
+  var w=window.open("","_blank");
+  var r=await sb.storage.from(BUCKET).createSignedUrl(path,3600);
+  if(r.error||!r.data){if(w)w.close();toast("This ebook is on its way. Check back soon.");return}
+  if(w)w.location=r.data.signedUrl;else window.location=r.data.signedUrl;
+});
+
+/* ===== Weekly loop checklist ===== */
+function weekKey(){var d=new Date();var day=(d.getDay()+6)%7;d.setDate(d.getDate()-day);d.setHours(0,0,0,0);return d}
+var TW=[["Monday · Focus",["Set one goal for the week","Break it into daily tasks","Block your flow sessions"]],
+        ["Tue to Thu · Flow",["Run your first flow session","Do one session with the blocker on","Plan tomorrow's first task"]],
+        ["Midweek · Purpose",["10 minutes on your why","Get out of your head for an hour","Drop one draining task"]],
+        ["Friday to Sunday · Ship and reset",["Ship one piece of your offer","Log your wins and revenue","Review the week, set next week's goal"]]];
+function renderWeek(){
+  var wk=weekKey(), key="fsos-week-"+wk.toISOString().slice(0,10), ls=store(), saved={};
+  try{saved=JSON.parse((ls&&ls.getItem(key))||"{}")}catch(e){}
+  $("wk").textContent=wk.toLocaleDateString(undefined,{month:"long",day:"numeric"});
+  $("tw").innerHTML=TW.map(function(g,gi){return '<div class="tw"><div class="k">'+g[0]+'</div>'+g[1].map(function(t,ti){var id=gi+"-"+ti,on=!!saved[id];return '<label class="'+(on?"done":"")+'"><input type="checkbox" data-id="'+id+'"'+(on?" checked":"")+'><span>'+t+'</span></label>'}).join("")+'</div>'}).join("");
+  function prog(){var all=document.querySelectorAll("#tw input"),n=0;all.forEach(function(i){if(i.checked)n++});$("pbar").style.width=(n/all.length*100)+"%";$("ptxt").textContent=n+" of "+all.length+" done this week"}
+  $("tw").onchange=function(e){var i=e.target;saved[i.dataset.id]=i.checked;i.parentNode.classList.toggle("done",i.checked);try{ls&&ls.setItem(key,JSON.stringify(saved))}catch(x){}prog()};
+  prog();
+}
+
+/* ===== Views ===== */
+function show(){
+  var m=!!user;
+  $("pub").classList.toggle("hidden",m); $("mem").classList.toggle("hidden",!m);
+  if(m){var nm=(user.user_metadata&&user.user_metadata.full_name)||"";$("first").textContent=(nm.split(" ")[0])||"friend";$("whoEm").textContent=user.email;renderWeek()}
+  setTimeout(sendHeight,50);
+}
+
+/* ===== Auth ===== */
+var mode="join";
+function setMode(m){mode=m;
+  document.querySelectorAll(".tabs button").forEach(function(b){b.classList.toggle("on",b.dataset.mode===m)});
+  $("joinTxt").classList.toggle("hidden",m!=="join");$("loginTxt").classList.toggle("hidden",m!=="login");
+  $("nameRow").classList.toggle("hidden",m!=="join");$("fine").classList.toggle("hidden",m!=="join");
+  $("go").textContent=m==="join"?"Create my free account →":"Email me a sign-in link →";$("err").textContent="";
+}
+document.querySelectorAll(".tabs button").forEach(function(b){b.onclick=function(){setMode(b.dataset.mode)}});
+document.querySelectorAll("[data-join]").forEach(function(b){b.onclick=function(){setMode("join");toTop();setTimeout(function(){$("nm").focus()},400)}});
+
+$("f").onsubmit=async function(e){
+  e.preventDefault();
+  var email=$("em").value.trim().toLowerCase(), name=$("nm").value.trim().replace(/\s+/g," ");
+  if(mode==="join" && name.split(" ").length<2){$("err").textContent="Please add your first and last name.";return}
+  if(!/^\S+@\S+\.\S+$/.test(email)){$("err").textContent="Please check your email address.";return}
+  $("go").disabled=true;$("err").textContent="";
+  if(demo){
+    var ls=store(), saved=null; try{saved=JSON.parse((ls&&ls.getItem("fsos-demo-user"))||"null")}catch(x){}
+    if(mode==="login"&&(!saved||saved.email!==email)){$("err").textContent="No account with that email yet. Join free instead.";$("go").disabled=false;return}
+    user=mode==="join"?{email:email,user_metadata:{full_name:name}}:saved;
+    try{ls&&ls.setItem("fsos-demo-user",JSON.stringify(user))}catch(x){}
+    $("go").disabled=false; show(); toTop(); return;
+  }
+  var r=await sb.auth.signInWithOtp({email:email,options:{
+    shouldCreateUser: mode==="join",
+    emailRedirectTo: PAGE_URL,
+    data: mode==="join"?{full_name:name, source:"diygenius-flow-state"}:undefined
+  }});
+  $("go").disabled=false;
+  if(r.error){
+    var msg=r.error.message||"";
+    if(/signups not allowed|not found|user not found/i.test(msg)) $("err").innerHTML='No account with that email yet. <a href="#" id="sw" style="color:#a98bff">Join free instead</a>.';
+    else if(/rate|seconds/i.test(msg)) $("err").textContent="Please wait a minute before asking for another email.";
+    else $("err").textContent="Something went wrong. Please try again.";
+    var sw=$("sw"); if(sw) sw.onclick=function(x){x.preventDefault();setMode("join")};
+    return;
+  }
+  $("sentTo").textContent=email; $("authForm").classList.add("hidden"); $("authCode").classList.remove("hidden"); $("cd").focus(); sendHeight();
+};
+$("verify").onclick=async function(){
+  var token=$("cd").value.replace(/\D/g,""); if(token.length<6){$("err2").textContent="Enter the code from the email.";return}
+  $("verify").disabled=true;
+  var r=await sb.auth.verifyOtp({email:$("sentTo").textContent,token:token,type:"email"});
+  $("verify").disabled=false;
+  if(r.error){$("err2").textContent="That code didn't work. Check the latest email, or click the link in it.";return}
+  user=r.data.user; show(); toTop();
+};
+$("back").onclick=function(){$("authCode").classList.add("hidden");$("authForm").classList.remove("hidden");$("err2").textContent=""};
+$("out").onclick=async function(){
+  if(demo){try{store()&&store().removeItem("fsos-demo-user")}catch(x){}}else{await sb.auth.signOut()}
+  user=null; show(); toTop();
+};
+
+/* Magic link lands on the parent page with tokens in the URL. This page shares its origin, so read them there. */
+async function fromLink(){
+  var loc; try{loc=inFrame?window.parent.location:window.location}catch(e){loc=window.location}
+  var h=new URLSearchParams((loc.hash||"").replace(/^#/,"")), q=new URLSearchParams(loc.search||"");
+  var clean=function(){try{(inFrame?window.parent:window).history.replaceState(null,"",loc.pathname)}catch(e){}};
+  if(h.get("access_token")&&h.get("refresh_token")){
+    var r=await sb.auth.setSession({access_token:h.get("access_token"),refresh_token:h.get("refresh_token")}); clean(); return r.data&&r.data.user;
+  }
+  if(q.get("code")){var r2=await sb.auth.exchangeCodeForSession(q.get("code")); clean(); return r2.data&&r2.data.user}
+  if(h.get("error_description")){clean(); toast("That sign-in link has expired. Log in again for a new one.")}
+  return null;
+}
+
+/* ===== Start ===== */
+(async function(){
+  paintArt(); renderStages(); renderLib();
+  if(demo){$("demo").classList.remove("hidden");try{user=JSON.parse((store()&&store().getItem("fsos-demo-user"))||"null")}catch(e){}}
+  else{
+    user=await fromLink();
+    if(!user){var s=await sb.auth.getSession();user=s.data.session&&s.data.session.user}
+    sb.auth.onAuthStateChange(function(ev,session){var u=session&&session.user||null;if(!!u!==!!user){user=u;show()}});
+  }
+  show(); loadLibrary();
+  window.addEventListener("resize",sendHeight); new ResizeObserver(sendHeight).observe(document.body);
+})();
+</script>
+</body>
+</html>
