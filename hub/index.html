@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Flow State OS · Find your focus, live your purpose, productize your genius</title>
+<title>Flow State OS · Clarify your purpose, train your focus, productize your genius</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -160,8 +160,8 @@ ul.ck li:before{content:"✓";position:absolute;left:0;top:7px;width:20px;height
     <div>
       <div class="eyebrow">Flow State OS · Free member hub</div>
       <h1>Get into flow, <span class="gt">every single week.</span></h1>
-      <p class="lead">A simple weekly process to find your focus, live your purpose and productize your genius. Create a free account to unlock my ebooks, the Transformational Offer Builder and every new tool I add.</p>
-      <div class="trio"><span>01 Find your focus</span><span>02 Live your purpose</span><span>03 Productize your genius</span></div>
+      <p class="lead">A simple weekly process to clarify your purpose, train your focus and productize your genius. Create a free account to unlock my ebooks, the Transformational Offer Builder and every new tool I add.</p>
+      <div class="trio"><span>01 Clarify your purpose</span><span>02 Train your focus</span><span>03 Productize your genius</span></div>
     </div>
 
     <div class="auth" id="auth">
@@ -194,12 +194,12 @@ ul.ck li:before{content:"✓";position:absolute;left:0;top:7px;width:20px;height
   <section class="lp" id="process">
     <div class="eyebrow">The process</div>
     <h2>Three moves. One week. <span class="gt">Repeat.</span></h2>
-    <p class="big">Flow isn't luck. It shows up when you have a clear goal, a task that stretches you and time to go deep without interruptions. This loop builds all three into your week, so getting into flow becomes a habit instead of a happy accident.</p>
+    <p class="big">Flow isn't luck. It shows up when you know why the work matters, you've trained your attention to go deep and you have something real to ship. This loop builds all three into your week, so getting into flow becomes a habit instead of a happy accident.</p>
     <div class="week">
-      <div class="f"><b>Mon</b><span>Focus</span></div>
-      <div class="f"><b>Tue</b><span>Flow</span></div>
-      <div class="p"><b>Wed</b><span>Purpose</span></div>
-      <div class="f"><b>Thu</b><span>Flow</span></div>
+      <div class="p"><b>Mon</b><span>Purpose</span></div>
+      <div class="f"><b>Tue</b><span>Focus</span></div>
+      <div class="f"><b>Wed</b><span>Focus</span></div>
+      <div class="f"><b>Thu</b><span>Focus</span></div>
       <div class="g"><b>Fri</b><span>Ship</span></div>
       <div><b>Sat</b><span>Rest</span></div>
       <div class="r"><b>Sun</b><span>Reset</span></div>
@@ -222,7 +222,7 @@ ul.ck li:before{content:"✓";position:absolute;left:0;top:7px;width:20px;height
     <div class="fq">
       <div><b>Is it really free?</b><p>Yes. The hub, the ebooks and the tools in it are free. You only need your name and email.</p></div>
       <div><b>Do I need a password?</b><p>No. Each time you log in we email you a link and a code. Click the link or type the code and you're in.</p></div>
-      <div><b>How does this connect to the Chrome extension?</b><p>Flow State OS is also a Chrome new-tab extension with a focus timer, website blocker, focus music, goals and an AI coach. It runs the Monday to Friday part of the loop for you.</p></div>
+      <div><b>How does this connect to the Chrome extension?</b><p>Flow State OS is also a Chrome new-tab extension with a focus timer, website blocker, focus music, goals and an AI coach. It runs the train your focus part of the loop for you.</p></div>
       <div><b>Will more tools be added?</b><p>Yes. The Transformational Offer Builder is the first. More tools for each step of the loop are on the way, and members get them first.</p></div>
     </div>
   </section>
@@ -283,10 +283,10 @@ var LIBRARY = [
 ];
 
 var STAGES = {
-  focus:{n:"01", day:"Monday", title:"Find your focus", hue:0, text:"Pick one weekly goal that moves your biggest project forward. Break it into small daily tasks, then protect time to go deep with distractions switched off.",
-    rituals:["Set one clear goal for the week","Plan tomorrow's first task before you stop","Run 2 to 4 flow sessions a day with the blocker on"]},
-  purpose:{n:"02", day:"Midweek", title:"Live your purpose", hue:1, text:"Midweek, check your work against what matters to you. Is it work you love, that you're good at, that helps people and that pays? Adjust before the week runs away.",
-    rituals:["Spend 10 minutes on your why","Get out of your head: a walk, nature or music","Drop or hand off one task that drains you"]},
+  purpose:{n:"01", day:"Monday", title:"Clarify your purpose", hue:1, text:"Start the week with your why. Check your plans against what you love, what you're good at, what helps people and what pays. Then choose the one goal this week that moves you toward it.",
+    rituals:["Spend 10 minutes on your why","Set one clear goal for the week","Drop or hand off one task that drains you"]},
+  focus:{n:"02", day:"Tue to Thu", title:"Train your focus", hue:0, text:"Focus is a skill you build with reps. Break your goal into daily tasks, then run deep work sessions with distractions switched off. A little longer each week.",
+    rituals:["Run 2 to 4 flow sessions a day with the blocker on","Plan tomorrow's first task before you stop","Get out of your head between sessions: a walk, nature or music"]},
   genius:{n:"03", day:"Friday", title:"Productize your genius", hue:2, text:"Turn what you know into something people can buy. Every Friday, ship one piece of your offer: your promise, a step of your method, a page or a workshop.",
     rituals:["Ship one piece of your offer","Share one lesson from your week","Log your wins and revenue"]}
 };
@@ -334,7 +334,7 @@ function renderStages(){
     return '<div class="stage"><div class="ban">'+cover(20+i,k)+'<div class="n">'+s.n+'</div><div class="d">'+s.day+'</div></div><div class="bd"><h3>'+s.title+'</h3><p>'+s.text+'</p><ul class="ck">'+s.rituals.map(function(r){return '<li>'+r+'</li>'}).join("")+'</ul></div></div>'}).join("");
 }
 function libHTML(locked){
-  var order=["focus","purpose","genius"];
+  var order=["purpose","focus","genius"];
   return order.map(function(st){
     var list=items.filter(function(x){return x.stage===st}).sort(function(a,b){return (a.sort||0)-(b.sort||0)});
     if(!list.length) return "";
@@ -366,10 +366,10 @@ document.addEventListener("click",async function(e){
 
 /* ===== Weekly loop checklist ===== */
 function weekKey(){var d=new Date();var day=(d.getDay()+6)%7;d.setDate(d.getDate()-day);d.setHours(0,0,0,0);return d}
-var TW=[["Monday · Focus",["Set one goal for the week","Break it into daily tasks","Block your flow sessions"]],
-        ["Tue to Thu · Flow",["Run your first flow session","Do one session with the blocker on","Plan tomorrow's first task"]],
-        ["Midweek · Purpose",["10 minutes on your why","Get out of your head for an hour","Drop one draining task"]],
-        ["Friday to Sunday · Ship and reset",["Ship one piece of your offer","Log your wins and revenue","Review the week, set next week's goal"]]];
+var TW=[["Monday · Clarify your purpose",["10 minutes on your why","Set one goal for the week","Drop one draining task"]],
+        ["Tue to Thu · Train your focus",["Break your goal into daily tasks","Run a flow session with the blocker on","Plan tomorrow's first task"]],
+        ["Tue to Thu · Recover",["Take a walk or get into nature","Do one session without your phone nearby","Notice when you hit flow, and log it"]],
+        ["Friday to Sunday · Productize and reset",["Ship one piece of your offer","Log your wins and revenue","Review the week, set next week's goal"]]];
 function renderWeek(){
   var wk=weekKey(), key="fsos-week-"+wk.toISOString().slice(0,10), ls=store(), saved={};
   try{saved=JSON.parse((ls&&ls.getItem(key))||"{}")}catch(e){}
